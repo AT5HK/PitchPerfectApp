@@ -1,5 +1,8 @@
 # Pitch Perfect
 
+## Description
+Pitch Perfect lets you record your or your friends' voices and manipulate the recording! Make them sound like Alvin and the Chipmunks or Darth Vader!
+
 ## Tasks
 
 ### Record Sounds View
