@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  RecordSoundsViewController.swift
 //  PitchPerfect
 //
 //  Created by Michael Recachinas on 7/12/15.
