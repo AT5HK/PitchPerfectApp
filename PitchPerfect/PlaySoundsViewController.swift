@@ -49,17 +49,13 @@ class PlaySoundsViewController: UIViewController {
         audioPlayer.currentTime = currentTime
         audioPlayer.play()
     }
-    
-    func playAudioWithPitch(pitch: Float, currentTime: NSTimeInterval = 0.0) {
+
+    func setUpAndAttachEngine(effect: AVAudioUnit) {
         var audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
-        
-        var changePitchEffect = AVAudioUnitTimePitch()
-        changePitchEffect.pitch = pitch
-        audioEngine.attachNode(changePitchEffect)
-
-        audioEngine.connect(audioPlayerNode, to: changePitchEffect, format: nil)
-        audioEngine.connect(changePitchEffect, to: audioEngine.outputNode, format: nil)
+        audioEngine.attachNode(effect)
+        audioEngine.connect(audioPlayerNode, to: effect, format: nil)
+        audioEngine.connect(effect, to: audioEngine.outputNode, format: nil)
         
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
         audioEngine.startAndReturnError(nil)
@@ -67,23 +63,18 @@ class PlaySoundsViewController: UIViewController {
         audioPlayerNode.play()
     }
     
+    func playAudioWithPitch(pitch: Float, currentTime: NSTimeInterval = 0.0) {
+        var changePitchEffect = AVAudioUnitTimePitch()
+        changePitchEffect.pitch = pitch
+        setUpAndAttachEngine(changePitchEffect)
+    }
+    
     func playAudioWithReverb(reverb: Float, currentTime: NSTimeInterval = 0.0) {
-        var audioPlayerNode = AVAudioPlayerNode()
-        audioEngine.attachNode(audioPlayerNode)
-        
         let preset = AVAudioUnitReverbPreset(rawValue: 0)
         var reverbEffect = AVAudioUnitReverb()
         reverbEffect.loadFactoryPreset(preset!)
         reverbEffect.wetDryMix = reverb
-
-        audioEngine.attachNode(reverbEffect)
-        audioEngine.connect(audioPlayerNode, to: reverbEffect, format: nil)
-        audioEngine.connect(reverbEffect, to: audioEngine.outputNode, format: nil)
-        
-        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
-        audioEngine.startAndReturnError(nil)
-        
-        audioPlayerNode.play()
+        setUpAndAttachEngine(reverbEffect)
     }
     
     @IBAction func playSlowAudio(sender: UIButton) {
