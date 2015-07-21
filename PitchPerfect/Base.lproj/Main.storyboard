@@ -26,8 +26,8 @@
                                     <action selector="recordAudio:" destination="R54-Ij-dEO" eventType="touchUpInside" id="pxw-T8-o1u"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Tap to Record" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cX0-KM-gCa">
-                                <rect key="frame" x="258" y="358" width="82" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to Record" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cX0-KM-gCa">
+                                <rect key="frame" x="258" y="358" width="82" height="15.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -41,19 +41,31 @@
                                     <action selector="stopRecording:" destination="R54-Ij-dEO" eventType="touchUpInside" id="aAr-qP-S5H"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAp-fB-wrP">
+                                <rect key="frame" x="276" y="491" width="43" height="30"/>
+                                <state key="normal" title="Pause">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pauseRecording:" destination="R54-Ij-dEO" eventType="touchUpInside" id="NU4-Ge-02v"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="cX0-KM-gCa" secondAttribute="centerX" constant="0.5" id="98M-zX-alJ"/>
                             <constraint firstAttribute="centerY" secondItem="AaX-Zs-KNQ" secondAttribute="centerY" id="9ub-6l-Lyc"/>
+                            <constraint firstItem="hAp-fB-wrP" firstAttribute="top" secondItem="S03-iW-10S" secondAttribute="bottom" constant="19" id="JUD-bd-nGX"/>
                             <constraint firstAttribute="centerX" secondItem="S03-iW-10S" secondAttribute="centerX" constant="0.5" id="MBJ-F9-NdB"/>
                             <constraint firstItem="S03-iW-10S" firstAttribute="top" secondItem="AaX-Zs-KNQ" secondAttribute="bottom" constant="72" id="OvK-DN-X0o"/>
                             <constraint firstAttribute="centerX" secondItem="AaX-Zs-KNQ" secondAttribute="centerX" id="my5-VE-Job"/>
+                            <constraint firstAttribute="centerX" secondItem="hAp-fB-wrP" secondAttribute="centerX" constant="2.5" id="vPq-7u-G6X"/>
                             <constraint firstItem="cX0-KM-gCa" firstAttribute="top" secondItem="AaX-Zs-KNQ" secondAttribute="bottom" constant="8" id="xEi-ex-kTk"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Record" id="1wd-Qy-R7n"/>
                     <connections>
+                        <outlet property="pauseButton" destination="hAp-fB-wrP" id="hIe-ZQ-1Qh"/>
                         <outlet property="recordButton" destination="AaX-Zs-KNQ" id="vKR-lI-CBN"/>
                         <outlet property="recordingInProgress" destination="cX0-KM-gCa" id="iRi-bW-a0l"/>
                         <outlet property="stopButton" destination="S03-iW-10S" id="4CD-QO-Ca6"/>
