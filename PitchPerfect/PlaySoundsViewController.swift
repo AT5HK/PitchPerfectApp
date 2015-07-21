@@ -67,6 +67,25 @@ class PlaySoundsViewController: UIViewController {
         audioPlayerNode.play()
     }
     
+    func playAudioWithReverb(reverb: Float, currentTime: NSTimeInterval = 0.0) {
+        var audioPlayerNode = AVAudioPlayerNode()
+        audioEngine.attachNode(audioPlayerNode)
+        
+        let preset = AVAudioUnitReverbPreset(rawValue: 0)
+        var reverbEffect = AVAudioUnitReverb()
+        reverbEffect.loadFactoryPreset(preset!)
+        reverbEffect.wetDryMix = reverb
+
+        audioEngine.attachNode(reverbEffect)
+        audioEngine.connect(audioPlayerNode, to: reverbEffect, format: nil)
+        audioEngine.connect(reverbEffect, to: audioEngine.outputNode, format: nil)
+        
+        audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
+        audioEngine.startAndReturnError(nil)
+        
+        audioPlayerNode.play()
+    }
+    
     @IBAction func playSlowAudio(sender: UIButton) {
         stopAndResetAudio()
         playAudioWithRate(0.5)
@@ -85,6 +104,11 @@ class PlaySoundsViewController: UIViewController {
     @IBAction func playDarthVaderAudio(sender: UIButton) {
         stopAndResetAudio()
         playAudioWithPitch(-1000)
+    }
+    
+    @IBAction func playReverbAudio(sender: UIButton) {
+        stopAndResetAudio()
+        playAudioWithReverb(50.0)
     }
     
     @IBAction func stopAudio(sender: UIButton) {
