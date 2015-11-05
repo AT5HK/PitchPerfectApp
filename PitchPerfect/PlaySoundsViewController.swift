@@ -51,19 +51,20 @@ class PlaySoundsViewController: UIViewController {
     }
 
     func setUpAndAttachEngine(effect: AVAudioUnit) {
-        var audioPlayerNode = AVAudioPlayerNode()
+        let audioPlayerNode = AVAudioPlayerNode()
         audioEngine.attachNode(audioPlayerNode)
         audioEngine.attachNode(effect)
         audioEngine.connect(audioPlayerNode, to: effect, format: nil)
         audioEngine.connect(effect, to: audioEngine.outputNode, format: nil)
         
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
-        do {
-            try audioEngine.startAndReturnError()
-        } catch _ {
-        }
         
-        audioPlayerNode.play()
+        do {
+            try audioEngine.start()
+            audioPlayerNode.play()
+        } catch _ {
+            NSLog("Exception occurred while trying to start the audio engine")
+        }
     }
     
     func playAudioWithPitch(pitch: Float, currentTime: NSTimeInterval = 0.0) {

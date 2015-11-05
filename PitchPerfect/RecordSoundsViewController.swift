@@ -44,18 +44,23 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         let pathArray = [dirPath, recordingName]
         let filePath = NSURL.fileURLWithPathComponents(pathArray)
         
-        var session = AVAudioSession.sharedInstance()
+        let session = AVAudioSession.sharedInstance()
+        
         do {
             try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
         } catch _ {
+            NSLog("Error occurred while trying to set the session as AVAudioSessionCategoryPlayAndRecord")
         }
         
-        audioRecorder = try? AVAudioRecorder(URL: filePath, settings: nil)
-        
-        audioRecorder.delegate = self
-        audioRecorder.meteringEnabled = true
-        audioRecorder.prepareToRecord()
-        audioRecorder.record()
+        if let path = filePath {
+            audioRecorder = try? AVAudioRecorder(URL: path, settings: [:])
+            audioRecorder.delegate = self
+            audioRecorder.meteringEnabled = true
+            audioRecorder.prepareToRecord()
+            audioRecorder.record()
+        } else {
+            NSLog("Error: The file path is non-existent.")
+        }
     }
 
     func audioStopped() {
@@ -92,6 +97,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         do {
             try audioSession.setActive(false)
         } catch _ {
+            NSLog("Exception occurred while setting AudioSession.setActive(false)")
         }
     }
     
