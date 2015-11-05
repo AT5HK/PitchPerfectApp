@@ -21,10 +21,10 @@ class PlaySoundsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        audioPlayer = AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl, error: nil)
+        audioPlayer = try? AVAudioPlayer(contentsOfURL: receivedAudio.filePathUrl)
         audioPlayer.enableRate = true
         audioEngine = AVAudioEngine()
-        audioFile = AVAudioFile(forReading: receivedAudio.filePathUrl, error: nil)
+        audioFile = try? AVAudioFile(forReading: receivedAudio.filePathUrl)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -58,20 +58,23 @@ class PlaySoundsViewController: UIViewController {
         audioEngine.connect(effect, to: audioEngine.outputNode, format: nil)
         
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
-        audioEngine.startAndReturnError(nil)
+        do {
+            try audioEngine.startAndReturnError()
+        } catch _ {
+        }
         
         audioPlayerNode.play()
     }
     
     func playAudioWithPitch(pitch: Float, currentTime: NSTimeInterval = 0.0) {
-        var changePitchEffect = AVAudioUnitTimePitch()
+        let changePitchEffect = AVAudioUnitTimePitch()
         changePitchEffect.pitch = pitch
         setUpAndAttachEngine(changePitchEffect)
     }
     
     func playAudioWithReverb(reverb: Float, currentTime: NSTimeInterval = 0.0) {
         let preset = AVAudioUnitReverbPreset(rawValue: 0)
-        var reverbEffect = AVAudioUnitReverb()
+        let reverbEffect = AVAudioUnitReverb()
         reverbEffect.loadFactoryPreset(preset!)
         reverbEffect.wetDryMix = reverb
         setUpAndAttachEngine(reverbEffect)

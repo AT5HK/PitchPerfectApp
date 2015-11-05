@@ -165,6 +165,8 @@
 		884B7E3E1B5328AE0032CA03 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = "Michael Recachinas";
 				TargetAttributes = {
@@ -423,6 +425,7 @@
 				884B7E691B5328AE0032CA03 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		884B7E6A1B5328AE0032CA03 /* Build configuration list for PBXNativeTarget "PitchPerfectTests" */ = {
 			isa = XCConfigurationList;
@@ -431,6 +434,7 @@
 				884B7E6C1B5328AE0032CA03 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
